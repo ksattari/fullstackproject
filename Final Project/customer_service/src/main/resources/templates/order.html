@@ -12,11 +12,11 @@
       <h2 align="center">
         Customer Order Form 5
       </h2>
-        <p align ="right" th:text="'Date: ' + ${theDate}" />
+        <p class="right" th:text="'Date: ' + ${theDate}" >
     </div>
+    <form th:action="@{/processOrder}" th:object="${order}" method="post">
     <fieldset style="width:270px">
     <legend>Customer Details</legend>
-     <form th:action="@{/processOrder}" th:object="${order}" method="post">
     <div>
         <div class="formbuilder-text form-group field-customerName">
             <label for="customerName" class="input">Customer Name
@@ -37,7 +37,6 @@
             <input type="tel" class="input" name="phoneNumber" access="false" maxlength="10" id="phoneNumber">
         </div>
     </div>
-     </form>
     </fieldset>
     <br><br>
     <table>
@@ -50,5 +49,7 @@
             <td th:text="'$' + ${item.ItemPrice}" align="center"></td>
         </tr>
     </table>
+    <p class="center"> <button type="submit" >Submit</button></p>
+    </form>
   </body>
 </html>
