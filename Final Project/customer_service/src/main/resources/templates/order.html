@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -10,11 +10,13 @@
   <body class="bg">
     <div>
       <h2 align="center">
-        Customer Order Form
+        Customer Order Form 5
       </h2>
+        <p align ="right" th:text="'Date: ' + ${theDate}" />
     </div>
     <fieldset style="width:270px">
     <legend>Customer Details</legend>
+     <form th:action="@{/processOrder}" th:object="${order}" method="post">
     <div>
         <div class="formbuilder-text form-group field-customerName">
             <label for="customerName" class="input">Customer Name
@@ -35,7 +37,18 @@
             <input type="tel" class="input" name="phoneNumber" access="false" maxlength="10" id="phoneNumber">
         </div>
     </div>
+     </form>
     </fieldset>
-
+    <br><br>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+        <tr th:each="item : ${theMenu}">
+            <td th:text="${item.itemName}" align="center"></td>
+            <td th:text="'$' + ${item.ItemPrice}" align="center"></td>
+        </tr>
+    </table>
   </body>
 </html>
