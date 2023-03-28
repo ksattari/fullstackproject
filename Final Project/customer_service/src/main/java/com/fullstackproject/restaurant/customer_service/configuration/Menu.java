@@ -17,6 +17,7 @@ public class Menu {
 
         menu.add(new MenuItem(0,"Hamburger",8.95));
         menu.add(new MenuItem(0,"Fish n Chips",12.95));
+        menu.add(new MenuItem(0,"Noodles",10.95));
 
         return menu;
 
