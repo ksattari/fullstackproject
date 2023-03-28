@@ -10,45 +10,61 @@
   <body class="bg">
     <div>
       <h2 align="center">
-        Customer Order Form 5
+        Customer Order Form
       </h2>
-        <p align ="right" th:text="'Date: ' + ${theDate}" />
+        <p class="right" th:text="'Date: ' + ${theDate}" >
     </div>
-    <fieldset style="width:270px">
+    <form th:action="@{/processOrder}" th:object="${order}" method="post">
+    <fieldset style="width:550px">
     <legend>Customer Details</legend>
-     <form th:action="@{/processOrder}" th:object="${order}" method="post">
     <div>
-        <div class="formbuilder-text form-group field-customerName">
-            <label for="customerName" class="input">Customer Name
+        <table>
+         <tr class="pad">
+            <td class="pad">
+                <label for="customerName" class="input">Customer Name
                 <br>
-            </label>
-            <input type="text" class="input" name="customerName"  access="false" id="customerName">
-        </div>
-        <div class="formbuilder-text form-group field-address">
-            <label for="address" class="input">Customer Address
+                </label>
+                <input type="text" class="input" name="customerName" size="50" access="false" id="customerName">
+            </td>
+             <td class="error left pad">error</td>
+         </tr>
+            <tr class="pad">
+             <td class="pad">
+                <label for="address" class="input">Customer Address
                 <br>
-            </label>
-            <input type="text" class="input" name="address" size="50" access="false" id="address">
-        </div>
-        <div class="formbuilder-text form-group field-phoneNumber">
-            <label for="phoneNumber" class="formbuilder-text-label">Customer Phone No.
-                <br>
-            </label>
-            <input type="tel" class="input" name="phoneNumber" access="false" maxlength="10" id="phoneNumber">
-        </div>
+                </label>
+                <input type="text" class="input" name="address" size="50" access="false" id="address">
+             </td>
+                <td class="error left pad">error</td>
+            </tr>
+            <tr class="pad">
+                <td class="pad">
+                 <label for="phoneNumber" class="formbuilder-text-label">Customer Phone No.
+                 <br>
+                 </label>
+                 <input type="text"   th:field="*{phoneNumber}" class="input" name="phoneNumber" size="50" access="false" maxlength="10" id="phoneNumber" />
+                </td>
+           <td class="error" style="vertical-align:top;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Error</td>
+            </tr>
+        </table>
     </div>
-     </form>
     </fieldset>
     <br><br>
     <table>
         <tr>
             <th>Item</th>
             <th>Price</th>
+            <th>Quantity</th>
         </tr>
         <tr th:each="item : ${theMenu}">
             <td th:text="${item.itemName}" align="center"></td>
             <td th:text="'$' + ${item.ItemPrice}" align="center"></td>
+            <td>
+                <input type="text" class="input" th:name= "${item.itemName}"  size="1" access="false" id="customerName">
+             </td>
         </tr>
     </table>
+    <p class="center"> <button type="submit" >Submit</button></p>
+    </form>
   </body>
 </html>

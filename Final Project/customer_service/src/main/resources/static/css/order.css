@@ -1,11 +1,30 @@
-.bg{
-   background-color: #c2c2d6;
+body {
+   background-color: #C7E1EA;
  }
+
+ .center{
+    text-align: center;
+ }
+
+  .right{
+     text-align: right;
+  }
 
  th, td {
    padding: 10px;
  }
 
+ .error {
+    color: red;
+ }
 
+ .left{
+      text-align: left;
+   }
+
+.pad{
+   padding: 0px;
+
+}
 
 
