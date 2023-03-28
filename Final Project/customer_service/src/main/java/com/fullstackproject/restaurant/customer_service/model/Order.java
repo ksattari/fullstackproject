@@ -15,7 +15,11 @@ import java.util.List;
 public class Order {
 
     private long orderId;
+
+    @NotNull(message = "This field can not be empty")
     private String customerName;
+
+    @NotNull(message = "This field can not be empty")
     private String address;
 
     @Pattern(regexp = "^\\d{10}$",message="Please Enter 10 digits")

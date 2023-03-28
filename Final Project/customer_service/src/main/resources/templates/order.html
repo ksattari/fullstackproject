@@ -26,7 +26,7 @@
                 </label>
                 <input type="text" class="input" name="customerName" size="50" access="false" id="customerName">
             </td>
-             <td class="error left pad">error</td>
+             <td class="error left pad" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">error</td>
          </tr>
             <tr class="pad">
              <td class="pad">
@@ -35,7 +35,7 @@
                 </label>
                 <input type="text" class="input" name="address" size="50" access="false" id="address">
              </td>
-                <td class="error left pad">error</td>
+                <td class="error left pad" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">error</td>
             </tr>
             <tr class="pad">
                 <td class="pad">
@@ -44,7 +44,7 @@
                  </label>
                  <input type="text"   th:field="*{phoneNumber}" class="input" name="phoneNumber" size="50" access="false" maxlength="10" id="phoneNumber" />
                 </td>
-           <td class="error" style="vertical-align:top;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Error</td>
+           <td class="error left pad"  th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Error</td>
             </tr>
         </table>
     </div>

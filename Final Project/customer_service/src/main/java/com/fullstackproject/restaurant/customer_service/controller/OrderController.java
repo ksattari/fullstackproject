@@ -44,6 +44,7 @@ public class OrderController implements WebMvcConfigurer {
        model.addAttribute("theDate", new SimpleDateFormat("MM/dd/yyyy")
                .format(new Date()));
        model.addAttribute("theMenu",menu);
+       model.addAttribute("theOrder",order);
 
        if (bindingResult.hasErrors()) {
            return "order";
