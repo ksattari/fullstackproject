@@ -21,7 +21,7 @@ public class Order {
     private String phoneNumber;
     //private List<MenuItem> menuItems;
 
-   @OneToMany
+   @OneToMany(cascade=CascadeType.ALL)
    private List<OrderItem> orderItems;
 
     private Double orderTotal;

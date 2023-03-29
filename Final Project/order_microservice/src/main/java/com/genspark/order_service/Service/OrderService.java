@@ -52,10 +52,23 @@ public class OrderService implements OrderServiceInt{
         return this.itemDao.save(menuItem);
     }
 
+    //deletes menu item from menu table
     @Override
     public String deleteItemById(long itemId) {
         this.itemDao.deleteById(itemId);
         return "Deleted Menu Item Successfully";
 
     }
+
+    @Override
+    public List<Order> getOrders() {
+        return orderDao.findAll();
+    }
+
+    @Override
+    public List<MenuItem> getMenuItems() {
+        return itemDao.findAll();
+    }
+
+
 }

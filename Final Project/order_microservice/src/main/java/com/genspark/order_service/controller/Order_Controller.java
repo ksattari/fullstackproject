@@ -1,6 +1,7 @@
 package com.genspark.order_service.controller;
 
 import com.genspark.order_service.Entity.MenuItem;
+import com.genspark.order_service.Entity.Order;
 import com.genspark.order_service.Service.OrderServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 public class Order_Controller {
     @Autowired
-    private OrderServiceInt orderServiceInt;
+    private OrderServiceInt orderService;
    // @GetMapping("/orders")
     //public List<Order> getOrders()
     //{
@@ -23,7 +24,7 @@ public class Order_Controller {
     @PostMapping("/addItem")
     public MenuItem addItem(@RequestBody MenuItem menuItem)
     {
-        return  this.orderServiceInt.addItem(menuItem);
+        return  this.orderService.addItem(menuItem);
     }
     //@PostMapping("/addOrderItem")
     //public OrderItem addorderItem(@RequestBody OrderItem orderitem)
@@ -38,6 +39,20 @@ public class Order_Controller {
     @DeleteMapping("/items/{itemId}")
     public String deleteItem(@PathVariable String itemId)
     {
-        return this.orderServiceInt.deleteItemById(Long.parseLong(itemId));
+        return this.orderService.deleteItemById(Long.parseLong(itemId));
+    }
+    @PostMapping("/saveOrder")
+    public Order saveOrder(@RequestBody Order order){
+            return orderService.addOrder(order);
+    }
+
+    @GetMapping("/orders")
+    public List<Order> getOrders(){
+        return orderService.getOrders();
+    }
+
+    @GetMapping("/menu")
+    public List<MenuItem> getMenuItems(){
+        return orderService.getMenuItems();
     }
 }

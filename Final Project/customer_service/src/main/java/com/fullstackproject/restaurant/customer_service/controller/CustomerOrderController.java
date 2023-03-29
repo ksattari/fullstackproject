@@ -4,10 +4,15 @@ import com.fullstackproject.restaurant.customer_service.model.MenuItem;
 import com.fullstackproject.restaurant.customer_service.model.Order;
 import com.fullstackproject.restaurant.customer_service.model.OrderItem;
 import com.fullstackproject.restaurant.customer_service.util.OrderStatus;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,23 +28,38 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Controller
 @Slf4j
-public class OrderController implements WebMvcConfigurer {
+public class CustomerOrderController implements WebMvcConfigurer {
 
-    @Autowired
+    //@Autowired
     List<MenuItem> menu;
-
     @Autowired
     private RestTemplate restTemplate;
 
+    @PostConstruct
+    public void init()
+    {
+
+        try {
+            ResponseEntity<MenuItem[]> response =
+                    restTemplate.getForEntity("http://localhost:8085/menu",MenuItem[].class);
+            menu = Arrays.asList(response.getBody());
+        }
+        catch(RestClientException e){
+            log.info(e.getMessage());
+        }
+    }
+
     @GetMapping("/")
     public String orderPage(Order order, Model model, WebRequest w){
-        log.info("INSIDE orderPage METHOD");
+        //log.info("INSIDE orderPage METHOD");
         model.addAttribute("theDate", new SimpleDateFormat("MM/dd/yyyy")
                 .format(new Date()));
         model.addAttribute("theMenu",menu);
@@ -52,7 +73,7 @@ public class OrderController implements WebMvcConfigurer {
        model.addAttribute("theDate", new SimpleDateFormat("MM/dd/yyyy")
                .format(new Date()));
        model.addAttribute("theMenu",menu);
-       model.addAttribute("theOrder",order);
+
 
        if (bindingResult.hasErrors()) {
            return "order";
@@ -71,7 +92,7 @@ public class OrderController implements WebMvcConfigurer {
                 lQty = 0;
            }
             if(lQty > 0){
-                    log.info("VALUE OF dQTy is " + lQty);
+                   // log.info("VALUE OF dQTy is " + lQty);
                     orderItems.add(new OrderItem(i.getItemName(),i.getItemPrice(),lQty));
                 }
        }
@@ -92,7 +113,16 @@ public class OrderController implements WebMvcConfigurer {
            log.info(order.toString());
 
         // **********    THIS IS WHERE YOU CALL THE ORDER_MICROSERVICE SAVE RECORD API **********  //
-       //restTemplate.postForLocation("http://localhost:8085/saveOrder",)
+       HttpEntity<Order> request = new HttpEntity<>(order);
+       Order confirmationOrder = null;
+       try {
+           confirmationOrder = restTemplate.postForObject("http://localhost:8085/saveOrder", request, Order.class);
+       }
+       catch(RestClientException e){
+           log.info(e.getMessage());
+       }
+
+       model.addAttribute("theOrder",confirmationOrder);
 
        return  "confirmation";
     }
