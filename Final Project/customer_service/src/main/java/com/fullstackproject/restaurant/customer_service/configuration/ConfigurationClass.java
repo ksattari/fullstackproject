@@ -3,12 +3,12 @@ package com.fullstackproject.restaurant.customer_service.configuration;
 import com.fullstackproject.restaurant.customer_service.model.MenuItem;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Configuration
-public class Menu {
+public class ConfigurationClass{
 
     @Bean
     public List<MenuItem> generateMenu(){
@@ -21,5 +21,10 @@ public class Menu {
 
         return menu;
 
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 }

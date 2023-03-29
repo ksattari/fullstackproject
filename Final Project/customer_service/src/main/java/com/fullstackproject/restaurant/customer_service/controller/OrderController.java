@@ -15,6 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -31,6 +32,9 @@ public class OrderController implements WebMvcConfigurer {
 
     @Autowired
     List<MenuItem> menu;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/")
     public String orderPage(Order order, Model model, WebRequest w){
@@ -76,6 +80,9 @@ public class OrderController implements WebMvcConfigurer {
            return "order";
        }
 
+
+
+
            order.setOrderItems(orderItems);
            order.setOrderDate(new java.util.Date().toInstant()
                    .atZone(ZoneId.systemDefault())
@@ -83,6 +90,9 @@ public class OrderController implements WebMvcConfigurer {
            order.setOrderId(1245);
            order.setOrderStatus(OrderStatus.NEW);
            log.info(order.toString());
+
+        // **********    THIS IS WHERE YOU CALL THE ORDER_MICROSERVICE SAVE RECORD API **********  //
+       //restTemplate.postForLocation("http://localhost:8085/saveOrder",)
 
        return  "confirmation";
     }
