@@ -2,10 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/order.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Order Confirmation</title>
 </head>
 <body>
-  Order Processed!
-  <p th:text="'Customer Name: ' + ${theOrder.CustomerName}">
+<div class="w3-panel w3-round-xxlarge  w3-khaki">
+    <h2 align="center">
+        Order Confirmation
+    </h2>
+    <p class="right" th:text="'Date: ' + ${theDate}" >
+
+    <table>
+    <tr>
+     <td>Customer Name:</td>
+        <td th:text="${theOrder.CustomerName}"></td>
+    </tr>
+    <tr>
+        <td>Customer Address:</td>
+        <td th:text="${theOrder.address}"></td>
+    </tr>
+    <tr>
+        <td>Customer Phone No.:</td>
+        <td th:text="${theOrder.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <td>Order Date/Time:</td>
+        <td th:text="${theOrder.orderDate}"></td>
+    </tr>
+    <tr>
+        <td>Item</td>
+        <td>Price</td>
+    </tr>
+
+  </table>
+</div>
 </body>
 </html>

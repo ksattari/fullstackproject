@@ -15,9 +15,9 @@ public class Menu {
 
         List<MenuItem> menu = new ArrayList<>();
 
-        menu.add(new MenuItem(0,"Hamburger",8.95));
-        menu.add(new MenuItem(0,"Fish n Chips",12.95));
-        menu.add(new MenuItem(0,"Noodles",10.95));
+        menu.add(new MenuItem(1,"Hamburger",8.95));
+        menu.add(new MenuItem(2,"Fish n Chips",12.95));
+        menu.add(new MenuItem(3,"Noodles",10.95));
 
         return menu;
 
