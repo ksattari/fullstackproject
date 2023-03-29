@@ -5,17 +5,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" type="text/css" href="/css/order.css" />
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Customer Order Page</title>
   </head>
-  <body class="bg">
-    <div>
+  <body class="bg" >
+  <div class="w3-panel w3-round-xxlarge w3-khaki">
+    <div >
       <h2 align="center">
         Customer Order Form
       </h2>
         <p class="right" th:text="'Date: ' + ${theDate}" >
     </div>
     <form th:action="@{/processOrder}" th:object="${order}" method="post">
-    <fieldset style="width:550px">
+    <fieldset style="width:800px">
     <legend>Customer Details</legend>
     <div>
         <table>
@@ -24,18 +26,18 @@
                 <label for="customerName" class="input">Customer Name
                 <br>
                 </label>
-                <input type="text" class="input" name="customerName" size="50" access="false" id="customerName">
+                <input type="text"  th:field="*{customerName}" class="input" name="customerName" size="50" access="false" id="customerName">
             </td>
-             <td class="error left pad">error</td>
+             <td class="error left pad" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">error</td>
          </tr>
             <tr class="pad">
              <td class="pad">
                 <label for="address" class="input">Customer Address
                 <br>
                 </label>
-                <input type="text" class="input" name="address" size="50" access="false" id="address">
+                <input type="text"  th:field="*{address}" class="input" name="address" size="50" access="false" id="address">
              </td>
-                <td class="error left pad">error</td>
+                <td class="error left pad" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">error</td>
             </tr>
             <tr class="pad">
                 <td class="pad">
@@ -44,11 +46,13 @@
                  </label>
                  <input type="text"   th:field="*{phoneNumber}" class="input" name="phoneNumber" size="50" access="false" maxlength="10" id="phoneNumber" />
                 </td>
-           <td class="error" style="vertical-align:top;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Error</td>
+           <td class="error left pad"  th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Error</td>
             </tr>
         </table>
     </div>
+
     </fieldset>
+
     <br><br>
     <table>
         <tr>
@@ -65,6 +69,8 @@
         </tr>
     </table>
     <p class="center"> <button type="submit" >Submit</button></p>
+
     </form>
+  </div>
   </body>
 </html>
