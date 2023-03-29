@@ -30,11 +30,21 @@
         <td>Order Date/Time:</td>
         <td th:text="${theOrder.orderDate}"></td>
     </tr>
+    </table>
+    <table>
     <tr>
-        <td>Item</td>
-        <td>Price</td>
+        <th align="left">Item </th>
+        <th align="left">Qty</th>
+        <th align="left">Price</th>
     </tr>
-
+    <tr th:each="item : ${order.orderItems}">
+        <td th:text="${item.orderItemName}" align="left"></td>
+        <td th:text="${item.quantity}" align="left"></td>
+        <td th:text="${#numbers.formatCurrency(item.totalCost)}"align="left" ></td>
+    </tr>
+        <td></td>
+        <td>Total:</td>
+        <td th:text="${#numbers.formatCurrency(order.orderTotal)}"></td>
   </table>
 </div>
 </body>
