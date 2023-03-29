@@ -14,4 +14,7 @@ public interface OrderServiceInt {
     MenuItem addItem(MenuItem menuItem);
     String deleteItemById(long itemId);
 
+    List<Order> getOrders();
+
+    List<MenuItem> getMenuItems();
 }
