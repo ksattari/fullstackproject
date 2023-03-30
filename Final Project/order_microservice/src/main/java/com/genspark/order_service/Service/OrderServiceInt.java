@@ -17,4 +17,6 @@ public interface OrderServiceInt {
     List<Order> getOrders();
 
     List<MenuItem> getMenuItems();
+
+    void save(Order order);
 }

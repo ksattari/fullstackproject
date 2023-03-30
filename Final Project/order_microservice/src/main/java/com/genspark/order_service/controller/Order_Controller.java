@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class Order_Controller {
     @Autowired
     private OrderServiceInt orderService;
@@ -49,6 +50,10 @@ public class Order_Controller {
     @GetMapping("/orders")
     public List<Order> getOrders(){
         return orderService.getOrders();
+    }
+    @PostMapping("/orders")
+    void addUser(@RequestBody Order order) {
+        orderService.save(order);
     }
 
     @GetMapping("/menu")

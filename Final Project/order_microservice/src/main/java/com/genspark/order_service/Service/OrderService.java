@@ -70,5 +70,10 @@ public class OrderService implements OrderServiceInt{
         return itemDao.findAll();
     }
 
+    @Override
+    public void save(Order order) {
+         orderDao.save(order);
+    }
+
 
 }
