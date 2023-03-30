@@ -1,0 +1,20 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Order Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.customerName }}</td>
+            <td>{{ order.orderTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
