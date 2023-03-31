@@ -12,7 +12,7 @@
           <tr *ngFor="let order of orders">
             <td>{{ order.orderId }}</td>
             <td>{{ order.customerName }}</td>
-            <td>{{ order.orderTotal }}</td>
+            <td>{{ formatStringCurrency(order.orderTotal) }}</td>
           </tr>
         </tbody>
       </table>
