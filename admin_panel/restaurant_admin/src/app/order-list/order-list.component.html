@@ -6,6 +6,7 @@
             <th scope="col">Order ID</th>
             <th scope="col">Customer Name</th>
             <th scope="col">Order Total</th>
+            <th scope="col">Delete Order</th>
           </tr>
         </thead>
         <tbody>
@@ -13,6 +14,7 @@
             <td><a routerLink="/orders" (click)="openOrderItemDialog(order.orderId)"> {{order.orderId }}</a> </td>
             <td>{{ order.customerName }}</td>
             <td>{{ formatStringCurrency(order.orderTotal) }}</td>
+            <td><button mat-raised-button color="accent" (click)="deleteOrder(order.orderId)">Delete Order</button></td>
           </tr>
         </tbody>
       </table>

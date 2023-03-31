@@ -75,5 +75,10 @@ public class OrderService implements OrderServiceInt{
          orderDao.save(order);
     }
 
+    @Override
+    public void deleteOrder(long orderId) {
+        orderDao.deleteById(orderId);
+    }
+
 
 }

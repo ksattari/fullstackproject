@@ -1,7 +1,11 @@
 <h2 mat-dialog-title>Order Detail</h2>
 <div mat-dialog-content>
-  <p>Order ID: {{data.orderId}} </p>
- 
+  <table>
+   <tr><td class="text-dark">Order ID:</td><td>{{data.orderId}}</td></tr>
+   <tr><td class="text-dark">Address:</td><td> {{data.address}} </td></tr>
+   <tr><td class="text-dark">Phone No:</td><td>{{data.phoneNumber}}</td></tr>
+ </table> 
+ <br>
   <table class="table table-bordered table-striped">
     <thead class="thead-dark">
       <tr>
@@ -13,7 +17,7 @@
     <tbody>
         <tr *ngFor="let item of data.orderItems">
           <td>{{ item.orderItemName }}</td>
-          <td>{{ item.orderItemPrice}}</td>
+          <td>${{ item.orderItemPrice}}</td>
           <td>{{ item.quantity }}</td>
         </tr>
       </tbody>
@@ -21,5 +25,5 @@
 </div>
 <div mat-dialog-actions align="center">
  <!-- <button mat-button (click)="onCancelUserDialog()">Cancel</button> -->
-  <button mat-button  (click)="onOkUserDialog()">Ok</button>
+  <button mat-raised-button color="accent" (click)="onOkUserDialog()">Ok</button>
 </div>

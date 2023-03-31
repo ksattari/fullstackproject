@@ -3,6 +3,7 @@ package com.genspark.order_service.controller;
 import com.genspark.order_service.Entity.MenuItem;
 import com.genspark.order_service.Entity.Order;
 import com.genspark.order_service.Service.OrderServiceInt;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class Order_Controller {
     @Autowired
     private OrderServiceInt orderService;
@@ -59,5 +61,10 @@ public class Order_Controller {
     @GetMapping("/menu")
     public List<MenuItem> getMenuItems(){
         return orderService.getMenuItems();
+    }
+    @DeleteMapping("/deleteorder/{id}")
+    public void deleteOrder(@PathVariable("id") String orderId){
+        log.info("INSIDE DELETE METHOD ****************************************************");
+        orderService.deleteOrder(Long.parseLong(orderId));
     }
 }

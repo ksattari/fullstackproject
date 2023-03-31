@@ -8,10 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
 
+  private  url = 'http://localhost:8085';
   private ordersUrl: string;
+  private deleteUrl: string;
 
   constructor(private http: HttpClient) {
-    this.ordersUrl = 'http://localhost:8085/orders';
+    this.ordersUrl = this.url + '/orders';
+    this.deleteUrl = this.url + '/deleteorder/';
    }
 
    public findAll(): Observable<Order[]> {
@@ -20,5 +23,18 @@ export class OrderService {
 
   public save(order: Order) {
     return this.http.post<Order>(this.ordersUrl, order);
+  }
+
+  public delete(num: string){
+    this.http.delete(this.deleteUrl + num).subscribe({
+      next: data => {
+          
+          console.log("DELETE SUCCESS")
+      },
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  });
+
   }
 }

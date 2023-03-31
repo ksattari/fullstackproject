@@ -19,4 +19,6 @@ public interface OrderServiceInt {
     List<MenuItem> getMenuItems();
 
     void save(Order order);
+
+    void deleteOrder(long parseLong);
 }
