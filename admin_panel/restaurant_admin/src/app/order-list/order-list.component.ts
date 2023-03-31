@@ -3,6 +3,9 @@ import { Component,Inject,
 import { Order } from '../model/order';
 import { OrderService } from '../service/order.service';
 import {formatCurrency} from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+
 
 
 
@@ -14,8 +17,11 @@ import {formatCurrency} from '@angular/common';
 export class OrderListComponent implements OnInit{
 
   orders: Order[];
+  dialogRef: any;
+  order: Order;
 
-  constructor(private orderService: OrderService,@Inject(LOCALE_ID) public locale: string) {
+  constructor(private orderService: OrderService,
+    @Inject(LOCALE_ID) public locale: string,public dialog: MatDialog) {
 
   }
 
@@ -32,5 +38,13 @@ export class OrderListComponent implements OnInit{
     return  formatCurrency(num,this.locale,'$');
 
   }
+
+  openOrderItemDialog(orderId: string) {
+
+    this.order = this.orders.find(e => e.orderId === orderId) as Order;
+    this.dialogRef = this.dialog.open(OrderDialogComponent,
+      { data: this.order, height: '500px', width: '400px' });
+  
+  } 
 
 }
