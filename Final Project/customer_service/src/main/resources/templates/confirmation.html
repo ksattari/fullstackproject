@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/order.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Order Confirmation</title>
 </head>
 <body>
@@ -31,12 +32,14 @@
         <td th:text="${theOrder.orderDate}"></td>
     </tr>
     </table>
-    <table>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
     <tr>
         <th align="left">Item </th>
         <th align="left">Qty</th>
         <th align="left">Price</th>
     </tr>
+        </thead>
     <tr th:each="item : ${order.orderItems}">
         <td th:text="${item.orderItemName}" align="left"></td>
         <td th:text="${item.quantity}" align="left"></td>
