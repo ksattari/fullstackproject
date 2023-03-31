@@ -10,7 +10,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let order of orders">
-            <td>{{ order.orderId }}</td>
+            <td><a routerLink="/orders" onclick=""> {{order.orderId }}</a> </td>
             <td>{{ order.customerName }}</td>
             <td>{{ formatStringCurrency(order.orderTotal) }}</td>
           </tr>
