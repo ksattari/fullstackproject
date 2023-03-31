@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderListComponent } from './order-list/order-list.component';
 
 const routes: Routes = [ 
-  { path: 'orders', component: OrderListComponent },
-];
+    { path: 'orders', component: OrderListComponent
+       
+    },
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
