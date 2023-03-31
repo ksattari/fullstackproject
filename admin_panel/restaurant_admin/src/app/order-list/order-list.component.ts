@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Order } from '../model/order';
 import { OrderService } from '../service/order.service';
 
+
+
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -20,9 +22,6 @@ export class OrderListComponent implements OnInit{
     this.orderService.findAll().subscribe(data => {
       this.orders = data;
     });
-
   }
-
-
 
 }
