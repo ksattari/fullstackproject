@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Order Detail</h2>
+<div mat-dialog-content>
+  <p>Order ID: {{data.orderId}} </p>
+ 
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item Name</th>
+        <th scope="col">Item Price</th>
+        <th scope="col">Item Qty</th>  
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data.orderItems">
+          <td>{{ item.orderItemName }}</td>
+          <td>{{ item.orderItemPrice}}</td>
+          <td>{{ item.quantity }}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+<div mat-dialog-actions align="center">
+ <!-- <button mat-button (click)="onCancelUserDialog()">Cancel</button> -->
+  <button mat-button  (click)="onOkUserDialog()">Ok</button>
+</div>
