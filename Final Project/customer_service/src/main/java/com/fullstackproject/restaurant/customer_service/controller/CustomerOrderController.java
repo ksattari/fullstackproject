@@ -1,5 +1,7 @@
 package com.fullstackproject.restaurant.customer_service.controller;
 
+import com.fullstackproject.restaurant.customer_service.daoservice.CustomerService;
+import com.fullstackproject.restaurant.customer_service.model.Login;
 import com.fullstackproject.restaurant.customer_service.model.MenuItem;
 import com.fullstackproject.restaurant.customer_service.model.Order;
 import com.fullstackproject.restaurant.customer_service.model.OrderItem;
@@ -38,10 +40,15 @@ import java.util.List;
 @Slf4j
 public class CustomerOrderController implements WebMvcConfigurer {
 
-    //@Autowired
     List<MenuItem> menu;
+
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private CustomerService customerService;
+
+
 
     @PostConstruct
     public void init()
@@ -57,8 +64,8 @@ public class CustomerOrderController implements WebMvcConfigurer {
         }
     }
 
-    @GetMapping("/")
-    public String orderPage(Order order, Model model, WebRequest w){
+    @GetMapping("/order")
+    public String orderPage(Order order, Model model){
         //log.info("INSIDE orderPage METHOD");
         model.addAttribute("theDate", new SimpleDateFormat("MM/dd/yyyy")
                 .format(new Date()));
@@ -89,8 +96,7 @@ public class CustomerOrderController implements WebMvcConfigurer {
             }
             catch(NumberFormatException e){
                 log.info(e.getMessage());
-                lQty = 0;
-           }
+            }
             if(lQty > 0){
                    // log.info("VALUE OF dQTy is " + lQty);
                     orderItems.add(new OrderItem(i.getItemName(),i.getItemPrice(),lQty));
@@ -129,9 +135,27 @@ public class CustomerOrderController implements WebMvcConfigurer {
 
 
 
+
     @InitBinder
     public void initialBinderForTrimmingSpaces(WebDataBinder webDataBinder) {
         StringTrimmerEditor stringTrimEditor = new StringTrimmerEditor(true);
         webDataBinder.registerCustomEditor(String.class, stringTrimEditor);
+    }
+
+    @GetMapping("/")
+    public String login(Login login, Model model){ return "login";}
+
+    @PostMapping("/")
+    public String postLogin(@Valid Login login, BindingResult bindingResult, Model model ){
+
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+
+        if(!customerService.checkLogin(login).isSuccess()){
+            model.addAttribute("loginError",true);
+            return "login";
+        }
+        return "order";
     }
 }
